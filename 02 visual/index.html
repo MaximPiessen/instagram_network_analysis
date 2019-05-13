@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+      <meta charset="utf-8" />
+</head>
+<div align='center' id="d3_selectable_force_directed_graph">
+<svg />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="d3v4-brush-lite.js"></script>
+<script src="d3v4-selectable-force-directed-graph.js"></script>
+
+<script>
+$(document).ready(function(){
+  var x=$(window).width();
+  var y=$(window).height();
+
+  $("#d3_selectable_force_directed_graph").css('width', x);
+  $("#d3_selectable_force_directed_graph").css('height', y);
+
+  var svg = d3.select('#d3_selectable_force_directed_graph');
+
+  d3.json('relations.json', function(error, graph) {
+      if (!error) {
+          //console.log('graph', graph);
+          createV4SelectableForceDirectedGraph(svg, graph);
+      } else {
+          console.error(error);
+      }
+  });
+});
+
+</script>
+<style type="text/css">
+  div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 4px;
+    font: 12px sans-serif;
+    background: white;
+    border: 0px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  .hidden {
+    opacity: 0.2;
+  }
+
+  /*.edge {
+    opacity: 0.2;
+  }*/
+
+  #d3_selectable_force_directed_graph svg {
+    font: 13px sans-serif;
+    text-anchor: end;
+  }
+
+  #d3_selectable_force_directed_graph .node {
+    stroke: #fff;
+    stroke-width: 1px;
+  }
+
+  .node .selected {
+    stroke: black;
+  }
+
+  .link-bi {
+    stroke: #999 !important;
+  }
+</style>
