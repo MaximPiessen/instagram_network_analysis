@@ -17,6 +17,7 @@ class Bot:
         chrome_options.add_argument('--no-sandbox')
         #chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument("--lang=en")
         self.times_restarted = 0  # keep track of how many times profile page has to be refreshed
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.implicitly_wait(10)
