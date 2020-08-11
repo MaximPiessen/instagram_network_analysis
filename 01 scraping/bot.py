@@ -20,7 +20,7 @@ class Bot:
         chrome_options.add_argument("--lang=en")
         self.times_restarted = 0  # keep track of how many times profile page has to be refreshed
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
 
     def tear_down(self):
         """Stop web driver"""
@@ -38,12 +38,16 @@ class Bot:
         self.driver.find_element_by_xpath("//input[@name='password']").send_keys(password)
         time.sleep(2)
         self.driver.find_element_by_xpath("//button[contains(.,'Log In')]").click()
-        notNow = self.driver.find_element_by_class_name("bIiDR")
+        time.sleep(3)
+        self.driver.find_element_by_xpath("//button[contains(.,'Not Now')]").click()
+        notNow = self.driver.find_element_by_class_name("HoLwm")
+        time.sleep(3)
         notNow.click()
+        time.sleep(5)
 
     def get_my_followers(self, username):
-        self.go_to_page("https://www.instagram.com/" + username + "/")
-        time.sleep(3)
+        self.go_to_page("https://instagram.com/" + username + "/")
+        time.sleep(5)
         my_followers_set = set()
         followers = self.driver.find_elements_by_class_name("-nal3")
         followers[1].click()
