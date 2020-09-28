@@ -17,7 +17,7 @@ def relations_to_json(config):
     output_json_file = config.output_json_file
 
     nodes = set()
-    edges = []
+    edges = set()
     dict = {}
     name_to_id = {}
 
@@ -29,10 +29,10 @@ def relations_to_json(config):
 
             nodes.add(account_1)
             if include_me:
-                edges.append([account_1, account_2])
+                edges.add((account_1, account_2))
             else:
                 if not (account_1 == my_name or account_2 == my_name):
-                    edges.append([account_1, account_2])
+                    edges.add((account_1, account_2))
 
     dict["nodes"] = []
 
@@ -53,7 +53,7 @@ def relations_to_json(config):
     for accounts in edges:
         id_1 = name_to_id[accounts[0]]
         id_2 = name_to_id[accounts[1]]
-        if [accounts[1], accounts[0]] in edges:
+        if (accounts[1], accounts[0]) in edges:
             bi_links.add((id_1, id_2))
             if (id_2, id_1) not in bi_links:
                 dict["links"].append({"id": id_l, "source": id_1, "target": id_2, "value": 0.3, "bi_directional": True})
